@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { User } from '../models/User';
+import { useServiceContext } from '../services/ServiceContext';
 
 type CreateClientProps = {
   //close: () => void;
@@ -8,6 +9,7 @@ type CreateClientProps = {
 
 function CreateClient(props: CreateClientProps) {
 
+  const {userService} = useServiceContext();
   const { register, handleSubmit, formState } = useForm<User>({ mode: "onChange" });
 
   return (
@@ -40,8 +42,13 @@ function CreateClient(props: CreateClientProps) {
     </div>
   );
 
-  function onSubmit(data: User) {
+  async function onSubmit(data: User) {
     //TODO handle actions for form submitted
+     const trainerUser = await userService.getCurrentUser()
+     .then(trainer => data.personalTrainerId = trainer?.userId)
+
+     data.accountType = "Client";
+     userService.addClient(data);
     // Trainer ID and account type should be set auto
     console.log("DATA: ", data)
   }

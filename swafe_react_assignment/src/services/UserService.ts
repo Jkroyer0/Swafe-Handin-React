@@ -36,7 +36,7 @@ export class UserService {
         users.push(element);
       }));
 
-    users.forEach(x => console.log("ID's", x.email));
+    users.forEach(x => console.log("ID's", x.email + " " + x.personalTrainerId));
     const us = users.find(x => x.email == loginData.email);
 
     if (us?.userId) localStorage.setItem("UserId", us?.userId.toString());
@@ -62,6 +62,18 @@ export class UserService {
       method: "POST",
       headers: { "Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwtToken") },
       body: JSON.stringify(trainer)
+    };
+
+    await fetch(apiUrl + "Users", request)
+      .then(response => response.json())
+      .then(data => console.log("Response: ", data));
+  }
+
+  public async addClient(client: User) {
+    const request = {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwtToken") },
+      body: JSON.stringify(client)
     };
 
     await fetch(apiUrl + "Users", request)
