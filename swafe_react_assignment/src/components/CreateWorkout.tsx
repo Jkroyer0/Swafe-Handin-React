@@ -12,17 +12,14 @@ type CreateWorkoutProps = {
 function CreateWorkout(props: CreateWorkoutProps) {
 
 
-  let exerOptions: Exercise[];
+ 
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
   const { register, handleSubmit, formState } = useForm<Program>({ mode: "onChange" });
   const {programService} = useServiceContext();
 
- 
     useEffect(() => {
-       populateData()
-      //setExercises( await programService.getExercises())
-
+       populateData() 
     }, [] )
 
     async function populateData(){

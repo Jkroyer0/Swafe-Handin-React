@@ -71,7 +71,7 @@ function Trainer() {
   const tabs: JSX.Element[] = [
     <CreateClient />,
     <CreateWorkout exerOptions={[]} />,
-    <ProgramList programs={programList} />,
+    <ProgramList  />,
     <ClientList clients={[client]} /> //TODO: get clients with service
   ];
 

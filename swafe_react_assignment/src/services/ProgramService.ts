@@ -1,6 +1,6 @@
 import { Exercise } from "../models/Exercise";
 import { Program } from "../models/Program";
-import axios from "axios";
+
 
 
 
@@ -29,7 +29,7 @@ export class ProgramService{
     }
 
 
-    public async getAllTrainerPrograms(): Promise<Program[]>{
+    public async getAllTrainerPrograms(){
 
         const request = {
             method: "GET",
@@ -65,12 +65,6 @@ export class ProgramService{
             headers: {"Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwtToken")}
         };
 
-        /*axios({
-            method: 'get',
-            url: apiUrl + "Exercises",
-            headers: {Authorization: "Bearer " + localStorage.getItem("jwtToken"},
-        });
-        */
         let exerciseList: Exercise[] = [];
 
         await fetch(apiUrl + "Exercises", request)
@@ -78,14 +72,8 @@ export class ProgramService{
         .then(data => data.forEach((element: Exercise) => {
             exerciseList.push(element);
         }))
-        
-
-        /*await fetch(apiUrl + "Exercises")
-        .then(response => response.json())
-        .then(data => data.forEach((element: Exercise) => {
-            exerciseList.push(element);
-        }));
-        */
+    
+      
         return exerciseList;
     }
 

@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { User } from '../models/User';
-
+import { useServiceContext } from '../services/ServiceContext';
+import { UserService } from '../services/UserService';
 type ClientListProps = {
 	clients: User[] | undefined;
 }
 
 function ClientList(props: ClientListProps) {
+
+
+	const {userService} = useServiceContext();
+	const [users, setUsers] = useState<User[]>([]);
+  
+	  useEffect(() => {
+		 populateData() 
+	  }, [] )
+  
+	  async function populateData(){
+		setUsers(await userService.getTrainerClients())
+	  }
+  
+
+
 
 	return (
 		<div className="m-2 w-2/3">
@@ -19,7 +35,7 @@ function ClientList(props: ClientListProps) {
 					</tr>
 				</thead>
 				<tbody>
-					{props.clients?.map((client =>
+					{users.map((client =>
 						<tr>
 							<td className="w-3/12 border border-black p-1" >{client.email}</td>
 							<td className="w-3/12 border border-black p-1">{client.firstName}</td>

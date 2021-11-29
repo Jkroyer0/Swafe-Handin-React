@@ -1,26 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Program } from '../models/Program';
 import { useToggle } from '../hooks/useToggle';
 import Popup from 'reactjs-popup';
 import './ProgramList.css';
 import AddExercise from './AddExercise';
 import { Exercise } from '../models/Exercise';
+import { useServiceContext } from '../services/ServiceContext';
 
-type ProgramListProps = {
-  programs: Program[] | undefined;
-}
 
-function ProgramList(props: ProgramListProps) {
+function ProgramList() {
 
 
 
 
   const addExerciseToggle = useToggle();
   const addExerToProgramToggle = useToggle();
+  const {programService} = useServiceContext();
+  const [programs, setPrograms] = useState<Program[]>([]);
+
+    useEffect(() => {
+       populateData() 
+    }, [] )
+
+    async function populateData(){
+      setPrograms(await programService.getAllTrainerPrograms())
+    }
 
   return (
-    <div className="m-2">
-      <table className="w-full table-fixed border-collapse border border-black">
+    <div className="m-2 h-full"  >
+      <div className="overflow-auto h-5/6 m-2">
+      <table className="w-full table-fixed border-collapse border border-black ">
         <thead>
           <tr>
             <th className="w-2/12 border border-black py-2">Program</th>
@@ -30,8 +39,8 @@ function ProgramList(props: ProgramListProps) {
             <th className="w-1/12 border border-black py-2"></th>
           </tr>
         </thead>
-        <tbody>
-          {props.programs?.map((program =>
+        <tbody className="overflow-auto">
+          {programs.map((program =>
             <tr>
               <td className="w-2/12 border border-black p-1" >{program.name}</td>
               <td className="w-5/12 border border-black p-1">{program.description}</td>
@@ -44,6 +53,7 @@ function ProgramList(props: ProgramListProps) {
           ))}
         </tbody>
       </table>
+      </div>
       <button onClick={() => addExerciseToggle.toggle()} className="bg-green-300 shadow-md my-4 p-2 rounded hover:bg-green-500 ">Add New Exercise</button>
       <Popup className="popup-content" open={addExerciseToggle.isToggled} contentStyle={{ height: "500px", minWidth: "700px", backgroundColor: "rgba(0, 0, 0, 0)", boxShadow: "0px 3px 3px rgba(0, 0, 0, 0.18) " }} onClose={addExerciseToggle.toggleOff} modal>
         {addExerciseToggle.isToggled ? <AddExercise close={addExerciseToggle.toggleOff} /> : ""}

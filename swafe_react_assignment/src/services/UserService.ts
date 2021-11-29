@@ -56,5 +56,20 @@ export class UserService {
       .then(data => console.log("Response: ", data));
   }
 
+  public async getTrainerClients(){
+    const request = {
+        method: "GET",
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwtToken")}
+    };
+    let clientList: User[] = [];
+
+    await fetch(apiUrl+ "Users/Clients", request)
+    .then(response => response.json())
+    .then(data => data.forEach((element: User) => { 
+        clientList.push(element);
+    }));
+
+    return clientList;
+  }
 
 }
