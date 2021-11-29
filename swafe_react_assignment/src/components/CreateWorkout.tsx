@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Program } from '../models/Program';
 import { Exercise } from '../models/Exercise';
 import { User } from '../models/User';
+import { useServiceContext } from '../services/ServiceContext';
 
 type CreateWorkoutProps = {
   exerOptions: Exercise[];
@@ -10,7 +11,23 @@ type CreateWorkoutProps = {
 
 function CreateWorkout(props: CreateWorkoutProps) {
 
+
+  let exerOptions: Exercise[];
+  const [exercises, setExercises] = useState<Exercise[]>([]);
+
   const { register, handleSubmit, formState } = useForm<Program>({ mode: "onChange" });
+  const {programService} = useServiceContext();
+
+ 
+    useEffect(() => {
+       populateData()
+      //setExercises( await programService.getExercises())
+
+    }, [] )
+
+    async function populateData(){
+      setExercises(await programService.getExercises())
+    }
 
   return (
     <div className="flex h-full w-full  flex-col place-items-center" >
@@ -31,7 +48,7 @@ function CreateWorkout(props: CreateWorkoutProps) {
             <label className="text-black" >Exercises</label>
             <p className="text-black text-xs p-1" >(Use ctrl/cmd button to select several options.)</p>
             <select multiple={true}  {...register("exercises")} className="rounded ">
-              {props.exerOptions.map((exer) =>
+              {exercises.map((exer) =>
                 <option value={exer.exerciseId} >{exer.name}</option>
               )}
             </select>
@@ -46,9 +63,11 @@ function CreateWorkout(props: CreateWorkoutProps) {
     </div>
   );
 
-  function onSubmit(data: User) {
+  function onSubmit(data: Program) {
     //TODO handle actions for form submitted
     // Trainer ID set auto
+
+    programService.postWorkOutProgram(data);
     console.log("DATA: ", data)
   }
 }
