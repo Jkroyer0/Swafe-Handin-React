@@ -115,9 +115,6 @@ function Trainer() {
   );
 
 
-  function setNewClientTab() {
-
-  }
 
 
 }
