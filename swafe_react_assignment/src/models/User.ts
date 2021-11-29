@@ -10,8 +10,4 @@ export type User = {
     accountType: string
 }
 
-export enum UserType {
-    Client = 1,
-    PersonalTrainer = 2,
-    Manager = 3
-}
+

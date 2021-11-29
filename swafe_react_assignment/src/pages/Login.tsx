@@ -39,7 +39,7 @@ function Login() {
 
   async function onSubmit(data: LoginDTO) {
     const res = await userService.login(data);
-    console.log("accountType: ", res?.accountType);
+    console.log("accountType: ", res);
     switch (res?.accountType) {
       case "Manager":
         navigate('/manager');

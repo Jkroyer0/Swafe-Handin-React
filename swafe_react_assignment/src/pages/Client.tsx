@@ -1,60 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import ProgramTable from '../components/ProgramTable';
-import { Exercise } from '../models/Exercise';
 import { Program } from '../models/Program';
 import { Link } from 'react-router-dom';
+import { useServiceContext } from '../services/ServiceContext';
 
 function Client() {
+  const { programService, userService } = useServiceContext();
+  useEffect(() => { getData() }, [])
 
-  const [selectedProgram, setSelectedProgram] = useState<Program>();
-  useEffect(() => setSelectedProgram(programList[0]), []) //TODO use service to get client programs
+  async function getData() {
+    const res = await userService.getCurrentUser();
+    if (res) setProgramList(await programService.getClientPrograms(res.userId));
+  }
 
-  // *** DUMMY DATA *** 
-  const ex1: Exercise = {
-    name: "Bench",
-    exerciseId: 1,
-    description: "Push hard brotha",
-    sets: 2,
-    repetitions: 2,
-    programId: 1,
-    trainerId: 1
-  }
-  const ex2: Exercise = {
-    name: "Sqaut",
-    exerciseId: 2,
-    description: "Ass to grass ",
-    sets: 2,
-    repetitions: 2,
-    programId: 1,
-    trainerId: 1
-  }
-  const ex3: Exercise = {
-    name: "Deadlift",
-    exerciseId: 2,
-    description: "HEAVY",
-    sets: 2,
-    repetitions: 2,
-    programId: 1,
-    trainerId: 1
-  }
-  const exerList: Exercise[] = [ex1, ex2];
-  const programList: Program[] = [{
-    programId: 1,
-    name: "Strengt Conditioning",
-    description: "Build muscle",
-    exercises: exerList,
-    trainerId: 1,
-    clientId: 1
-  }, {
-    programId: 2,
-    name: "HIIT Cardio",
-    description: "FAST",
-    exercises: [ex1, ex2, ex3],
-    trainerId: 1,
-    clientId: 1
-  }]
-  // ^^ *** DUMMY DATA *** ^^
-
+  const [selectedProgram, setSelectedProgram] = useState<Program | undefined>();
+  const [programList, setProgramList] = useState<Program[]>([]);
+  useEffect(() => setSelectedProgram(programList[0]), [])
+  console.log("wat ", programList);
   return (
     <div className="flex w-screen h-screen bg-gray-700 justify-center" >
       <div className="flex w-full h-5/6 m-2 bg-gray-800 rounded-lg p-2 flex-col place-items-center " >

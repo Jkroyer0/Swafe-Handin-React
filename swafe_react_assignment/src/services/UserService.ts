@@ -11,11 +11,11 @@ export class UserService {
 
   private currentUser: User | undefined = undefined;
 
-  public async login(data: LoginDTO) {
+  public async login(loginData: LoginDTO) {
     const request = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(loginData)
     };
 
     let token: any;
@@ -36,13 +36,26 @@ export class UserService {
         users.push(element);
       }));
 
-    this.currentUser = users.find(x => x.email = data.email)
+    users.forEach(x => console.log("ID's", x.email));
+    const us = users.find(x => x.email == loginData.email);
+
+    if (us?.userId) localStorage.setItem("UserId", us?.userId.toString());
+    return users.find(x => x.email == loginData.email);
+  }
+
+
+  public async getCurrentUser() {
+    const request = {
+      method: "GET",
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwtToken") }
+    };
+
+    await fetch(apiUrl + "Users/" + localStorage.getItem("UserId"), request)
+      .then(response => response.json())
+      .then(data => this.currentUser = data);
     return this.currentUser;
   }
 
-  public getCurrentUser(): User | undefined {
-    return this.currentUser;
-  }
 
   public async addTrainer(trainer: User) {
     const request = {
