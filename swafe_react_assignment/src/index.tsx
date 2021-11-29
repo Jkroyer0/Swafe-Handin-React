@@ -9,12 +9,14 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { ServiceContext, getContext } from './services/ServiceContext';
 import Client from './pages/Client';
 import Manager from './pages/Manager';
 import Trainer from './pages/Trainer';
 
 ReactDOM.render(
   <React.StrictMode>
+    <ServiceContext.Provider value={getContext()}>
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
@@ -23,6 +25,7 @@ ReactDOM.render(
         <Route path="/trainer" element={<Trainer />} />
       </Routes>
     </Router>
+    </ServiceContext.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
