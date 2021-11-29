@@ -16,7 +16,7 @@ function Trainer() {
     email: "wow@gmail.com",
     firstName: "Owen",
     lastName: "Wilson",
-    accountType: 2,
+    accountType: "",
     password: "WooW",
     personalTrainerId: 1
   }

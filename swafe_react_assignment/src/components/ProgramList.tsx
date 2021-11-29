@@ -2,7 +2,6 @@ import React from 'react';
 import { Program } from '../models/Program';
 import { useToggle } from '../hooks/useToggle';
 import Popup from 'reactjs-popup';
-import Signup from '../components/Signup';
 import './ProgramList.css';
 import AddExercise from './AddExercise';
 import { Exercise } from '../models/Exercise';

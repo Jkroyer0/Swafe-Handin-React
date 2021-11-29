@@ -1,6 +1,3 @@
-
-
-
 export type LoginDTO = {
 
     email: string,

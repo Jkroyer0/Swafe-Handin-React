@@ -1,3 +1,5 @@
+import Manager from "../pages/Manager";
+
 export type User = {
     userId: number;
     firstName: string;
@@ -5,10 +7,11 @@ export type User = {
     email: string,
     password: string,
     personalTrainerId?: number, //Only set when user is client
-    accountType: UserType
+    accountType: string
 }
 
-enum UserType {
+export enum UserType {
     Client = 1,
-    PersonalTrainer = 2
+    PersonalTrainer = 2,
+    Manager = 3
 }
