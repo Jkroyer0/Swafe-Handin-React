@@ -9,8 +9,9 @@ type myToken = {
 const apiUrl = "https://afe2021fitness.azurewebsites.net/api/";
 export class UserService {
 
-  public async login(data: LoginDTO) {
+  private currentUser: User | undefined = undefined;
 
+  public async login(data: LoginDTO) {
     const request = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,7 +36,12 @@ export class UserService {
         users.push(element);
       }));
 
-    return users.find(x => x.email = data.email);
+    this.currentUser = users.find(x => x.email = data.email)
+    return this.currentUser;
+  }
+
+  public getCurrentUser(): User | undefined {
+    return this.currentUser;
   }
 
   public async addTrainer(trainer: User) {

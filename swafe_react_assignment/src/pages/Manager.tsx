@@ -6,7 +6,7 @@ import { useServiceContext } from '../services/ServiceContext';
 
 function Manager() {
 
-  const { register, handleSubmit, formState } = useForm<User>({ mode: "onChange" });
+  const { register, handleSubmit, formState, reset } = useForm<User>({ mode: "onChange" });
   const navigate = useNavigate();
   const { userService } = useServiceContext();
 
@@ -17,9 +17,7 @@ function Manager() {
         <header className="text-2xl text-white m-2 text-center ">
           Manager
         </header>
-
         <div>
-
           <form onSubmit={handleSubmit(onSubmit)} >
             <div className="flex flex-col mb-2">
               <label className="text-white" >First Name</label>
@@ -37,26 +35,18 @@ function Manager() {
               <label className="text-white" >Password</label>
               <input type="text" {...register("password", { required: true })} className="rounded " />
             </div>
-            {/*<div className="flex flex-col mb-2">
-              <label className="text-white" >Trainer Id</label>
-              <input type="number" {...register("personalTrainerId", { required: true })} className="rounded " />
-  </div>*/}
-
             <input type="submit" value="Create User" disabled={!formState.isValid} className={`flex p-1 text-white rounded m-2 ${formState.isValid ? "bg-blue-500 hover:bg-blue-700" : "bg-gray-400"} `} />
           </form>
-
         </div>
-
       </div>
     </div>
   );
 
   function onSubmit(data: User) {
-    //TODO handle actions for form submitted
     data.accountType = "PersonalTrainer";
     console.log("DATA: ", data)
-
-    userService.addTrainer(data);
+    const res = userService.addTrainer(data);
+    reset();
   }
 
   function logout() {
