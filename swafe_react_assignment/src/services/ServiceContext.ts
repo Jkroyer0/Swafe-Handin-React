@@ -1,17 +1,21 @@
 import { createContext } from "vm";
 import { UserService } from "./UserService";
+import { ProgramService } from "./ProgramService";
 import React, { useContext } from 'react';
+import { Program } from "typescript";
 
 export type ServiceContext = {
-    userService: UserService
+    userService: UserService,
+    programService: ProgramService
 } 
 
 export const ServiceContext = React.createContext<ServiceContext | undefined>(undefined);
 
 export const getContext = (): ServiceContext => {
     const  userService: UserService = new UserService();
+    const programService: ProgramService = new ProgramService();
     return {
-        userService
+        userService, programService
     }
 
 }
