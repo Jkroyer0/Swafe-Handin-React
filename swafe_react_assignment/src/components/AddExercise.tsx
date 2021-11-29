@@ -39,7 +39,6 @@ function AddExercise(props: AddExerciseProps) {
             <button onClick={() => props.close()} className="bg-red-300 w-1/3 rounded hover:bg-red-500 m-2 ">Cancel</button>
           </div>
         </div>
-
       </div>
     </form>
   );
