@@ -46,7 +46,6 @@ function CreateClient(props: CreateClientProps) {
     //TODO handle actions for form submitted
      const trainerUser = await userService.getCurrentUser()
      .then(trainer => data.personalTrainerId = trainer?.userId)
-
      data.accountType = "Client";
      userService.addClient(data);
     // Trainer ID and account type should be set auto

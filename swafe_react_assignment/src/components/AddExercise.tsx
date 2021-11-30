@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Exercise } from '../models/Exercise';
+import { useServiceContext } from '../services/ServiceContext';
 
 type AddExerciseProps = {
   close: () => void;
@@ -8,6 +9,7 @@ type AddExerciseProps = {
 
 function AddExercise(props: AddExerciseProps) {
 
+  const {userService, programService} = useServiceContext();
   const { register, handleSubmit, formState } = useForm<Exercise>({ mode: "onChange" });
 
   return (
@@ -43,9 +45,14 @@ function AddExercise(props: AddExerciseProps) {
     </form>
   );
 
-  function onSubmit(data: Exercise) {
+  async function onSubmit(data: Exercise) {
     //TODO handle actions for form submitted
     // Trainer ID and account type should be set auto
+    const trainerUser = await userService.getCurrentUser()
+     .then(trainer => data.personalTrainerId = trainer?.userId!)
+     
+    programService.postExercise(data);
+
     console.log("DATA: ", data);
     props.close();
   }

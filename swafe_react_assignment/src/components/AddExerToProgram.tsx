@@ -45,7 +45,8 @@ function AddExerToProgram(props: AddExerToProgramProps) {
       const temp = props.exerOptions.find(x => x.exerciseId == element);
       if (temp) _exercises.push(temp);
     });
-    //programService.addExercise(props.currentProgram?.programId, _exercises);  TODO: implemenet this func in services
+    programService.addExercise(props.currentProgram?.workoutProgramId!, _exercises); 
+  
     props.close();
   }
 

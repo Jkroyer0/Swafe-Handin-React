@@ -76,5 +76,41 @@ export class ProgramService {
         return exerciseList;
     }
 
+    public async postExercise(data: Exercise){
+
+        const request = {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwtToken") },
+            body: JSON.stringify(data)
+        };
+
+        
+
+        await fetch(apiUrl + "Exercises", request)
+            .then(response => response.json())
+            
+            
+            
+
+    }
+
+    public async addExercise(programId: Number, exercises: Exercise[])
+        {
+            exercises.forEach(async element => {
+                
+            const request = {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwtToken") },
+                body: JSON.stringify(element)
+            };
+
+            
+            await fetch(apiUrl + `Exercises/Program/${programId}`, request)
+            .then(response => response.json())
+            
+                
+              });
+        }
+   
 
 }

@@ -5,6 +5,6 @@ export type Exercise = {
     sets: number;
     repetitions?: number;
     time?: string;
-    programId: number;
-    trainerId: number;
+    workoutProgramId?: number;
+    personalTrainerId: number;
 }

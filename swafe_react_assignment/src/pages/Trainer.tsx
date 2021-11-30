@@ -28,8 +28,8 @@ function Trainer() {
     description: "Push hard brotha",
     sets: 2,
     repetitions: 2,
-    programId: 1,
-    trainerId: 1
+    workoutProgramId: 1,
+    personalTrainerId: 1
   }
   const ex2: Exercise = {
     name: "Sqaut",
@@ -37,8 +37,8 @@ function Trainer() {
     description: "Ass to grass ",
     sets: 2,
     repetitions: 2,
-    programId: 1,
-    trainerId: 1
+    workoutProgramId: 1,
+    personalTrainerId: 1
   }
   const ex3: Exercise = {
     name: "Deadlift",
@@ -46,23 +46,23 @@ function Trainer() {
     description: "HEAVY",
     sets: 2,
     repetitions: 2,
-    programId: 1,
-    trainerId: 1
+    workoutProgramId: 1,
+    personalTrainerId: 1
   }
   const exerList: Exercise[] = [ex1, ex2];
   const programList: Program[] = [{
-    programId: 1,
+    workoutProgramId: 1,
     name: "Strengt Conditioning",
     description: "Build muscle",
     exercises: exerList,
-    trainerId: 1,
+    personalTrainerId: 1,
     clientId: 1
   }, {
-    programId: 2,
+    workoutProgramId: 2,
     name: "HIIT Cardio",
     description: "FAST",
     exercises: [ex1, ex2, ex3],
-    trainerId: 1,
+    personalTrainerId: 1,
     clientId: 1
   }]
   // ^^ *** DUMMY DATA *** ^^

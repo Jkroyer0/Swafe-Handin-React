@@ -8,7 +8,7 @@ type ProgramTableProps = {
 function ProgramTable(props: ProgramTableProps) {
 
   return (
-    <div className="m-2">
+    <div className="m-2 overflow-auto">
       <table className="w-full table-fixed border-collapse border border-black">
         <thead>
           <tr>
