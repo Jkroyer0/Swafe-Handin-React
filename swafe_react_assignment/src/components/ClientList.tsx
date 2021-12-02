@@ -24,7 +24,7 @@ function ClientList(props: ClientListProps) {
 
 
 	return (
-		<div className="m-2 w-2/3 overflow-auto">
+		<div className="m-2 w-2/3 overflow-auto h-5/6">
 			<table className="w-full table-fixed border-collapse border border-black">
 				<thead>
 					<tr>

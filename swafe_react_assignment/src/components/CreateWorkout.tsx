@@ -17,7 +17,7 @@ function CreateWorkout(props: CreateWorkoutProps) {
 
   const { register, handleSubmit, formState } = useForm<Program>({ mode: "onChange" });
   const {programService} = useServiceContext();
-
+  
     useEffect(() => {
        populateData() 
     }, [] )
@@ -63,9 +63,38 @@ function CreateWorkout(props: CreateWorkoutProps) {
   function onSubmit(data: Program) {
     //TODO handle actions for form submitted
     // Trainer ID set auto
+    
+    let myArray: [];
+   
+    exercises.forEach(x => console.log("this data", x))
+    data.exercises.forEach(x => console.log("this other data", typeof(x) + " " + x + " " + typeof(x.exerciseId) + " " + x.exerciseId))
 
-    programService.postWorkOutProgram(data);
-    console.log("DATA: ", data)
+    let exerArray: Exercise[] = [];
+
+    exercises.forEach(x => {
+      for(let i = 0; i < data.exercises.length; i++)
+      {
+        if(x.exerciseId == parseInt(`${data.exercises[i]}`))
+        {
+          console.log(" i found something: ", x )
+          exerArray.push(x);
+        }
+      }
+    }
+      )
+
+    data.exercises = exerArray;
+    exerArray.forEach(x => x.exerciseId = 0)
+    console.log("This is it: ", data)
+    programService.postWorkOutProgram(data);    
+
+    //data.exercises.forEach((y, myArray) => {  myArray.push(exercises.find(x => x.exerciseId === y.exerciseId )  })
+    //exercises.forEach(x => x.exerciseId == data.exercises.findIndex)
+    //exercises.find( x => x.exerciseId == data.exercises[0])
+    //console.log("DATA: ", myData);
+    
   }
+
+  
 }
 export default CreateWorkout;

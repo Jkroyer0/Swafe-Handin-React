@@ -57,10 +57,10 @@ function ProgramList() {
       </div>
       <button onClick={() => addExerciseToggle.toggle()} className="bg-green-300 shadow-md my-4 p-2 rounded hover:bg-green-500 ">Add New Exercise</button>
       <Popup className="popup-content" open={addExerciseToggle.isToggled} contentStyle={{ height: "500px", minWidth: "700px", backgroundColor: "rgba(0, 0, 0, 0)", boxShadow: "0px 3px 3px rgba(0, 0, 0, 0.18) " }} onClose={addExerciseToggle.toggleOff} modal>
-        {addExerciseToggle.isToggled ? <AddExercise close={addExerciseToggle.toggleOff} /> : ""}
+        {addExerciseToggle.isToggled ? <AddExercise close={closeAndUpdate} /> : ""}
       </Popup>
       <Popup className="popup-content" open={addExerToProgramToggle.isToggled} contentStyle={{ height: "500px", minWidth: "700px", backgroundColor: "rgba(0, 0, 0, 0)", boxShadow: "0px 3px 3px rgba(0, 0, 0, 0.18) " }} onClose={addExerToProgramToggle.toggleOff} modal>
-        {addExerToProgramToggle.isToggled ? <AddExerToProgram currentProgram={currentProgram} exerOptions={exercises} close={addExerToProgramToggle.toggleOff} /> : ""}
+        {addExerToProgramToggle.isToggled ? <AddExerToProgram currentProgram={currentProgram} exerOptions={exercises} close={closeAndUpdate} /> : ""}
       </Popup>
 
     </div>
@@ -71,6 +71,11 @@ function ProgramList() {
     addExerToProgramToggle.toggle()
   }
 
+  function closeAndUpdate(){
+    addExerToProgramToggle.toggleOff();
+    addExerciseToggle.toggleOff();
+    populateData();
+  }
 
 
   function getNames(exercises: Exercise[]): string {

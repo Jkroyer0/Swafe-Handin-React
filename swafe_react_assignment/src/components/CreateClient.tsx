@@ -10,7 +10,7 @@ type CreateClientProps = {
 function CreateClient(props: CreateClientProps) {
 
   const {userService} = useServiceContext();
-  const { register, handleSubmit, formState } = useForm<User>({ mode: "onChange" });
+  const { register, handleSubmit, formState, reset } = useForm<User>({ mode: "onChange" });
 
   return (
     <div className="flex h-5/6 w-1/3  flex-col place-items-center" >
@@ -50,6 +50,7 @@ function CreateClient(props: CreateClientProps) {
      userService.addClient(data);
     // Trainer ID and account type should be set auto
     console.log("DATA: ", data)
+    reset();
   }
 }
 export default CreateClient;

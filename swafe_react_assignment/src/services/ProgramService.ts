@@ -49,11 +49,13 @@ export class ProgramService {
 
         const request = {
             method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwtToken") }
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwtToken"), "Acces-Control-Allow-Origin": "*"},
+            body: JSON.stringify(program)
         };
 
-        await fetch(apiUrl + "WorkoutPrograms/trainer", request)
-            .then(response => response.json())
+        await fetch(apiUrl + "WorkoutPrograms", request)
+        .then(response => response.json())
+            
 
     }
 
